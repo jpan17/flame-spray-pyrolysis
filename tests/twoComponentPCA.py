@@ -23,7 +23,7 @@ def applyPCA (array, frameCount, test, videos, stability):
             if isStable > 1.25: 
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'blue')
-            elif isStable > .5:
+            elif isStable > .75:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'purple')
             else:
@@ -113,7 +113,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Bounding Box Pixel Luminosity (per frame)", fontsize = 24)
+        plt.title("2 component PCA on Bounding Box Pixel Luminosity (per 10 frames)", fontsize = 24)
         
     plt.show()
     return

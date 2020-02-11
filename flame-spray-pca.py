@@ -16,7 +16,7 @@ def standardize(array):
 # main function
 def main():
     
-    df = pandas.read_csv('EtOH_flamemap.csv')
+    df = pandas.read_csv('classification-master.csv')
     
     features = []
     frameCount = 0    
@@ -49,7 +49,7 @@ def main():
             vidHeight = height
             vidWidth = width 
             test = ''
-            tempStability = int(df['box'][i])
+            tempStability = int(df['means'][i])
             # stability.append(tempStability)
             
             # display the video until 'q' is pressed or until it terminates
