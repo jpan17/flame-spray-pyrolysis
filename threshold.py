@@ -16,7 +16,7 @@ def threshold():
         videoCount += 1
         
         fileName = df['File name'][i]
-        fire = cv2.VideoCapture('./fireFiles/' + fileName)
+        fire = cv2.VideoCapture('./flame-spray-videos/' + fileName)
         
         ret, frame = fire.read()
         height, width, channels = frame.shape

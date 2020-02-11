@@ -14,7 +14,7 @@ def edgeDetection():
     for i in range(0, len(df['File name'])):
         # read in video
         fileName = df['File name'][i]
-        fire = cv2.VideoCapture('./fireFiles/' + fileName)
+        fire = cv2.VideoCapture('./flame-spray-videos/' + fileName)
         
         ret, frame = fire.read()
         height, width, channels = frame.shape

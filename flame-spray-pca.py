@@ -30,7 +30,7 @@ def main():
         numFrames = 0
         
         # read in video
-        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
+        fire = cv2.VideoCapture('./flame-spray-videos/' + df['File name'][i])
         print(df['File name'][i])
         
         # if i > 0: 

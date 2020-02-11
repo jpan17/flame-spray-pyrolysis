@@ -34,7 +34,7 @@ def main():
     averages = []
         
     fileName = "flame-spray-02.avi"
-    fire = cv2.VideoCapture('./fireFiles/' + fileName)
+    fire = cv2.VideoCapture('./flame-spray-videos/' + fileName)
         
     ret, frame = fire.read()
     height, width, channels = frame.shape

@@ -24,7 +24,7 @@ def main():
         else:
             stability = "unstable"
             
-        fire = cv2.VideoCapture('./fireFiles/' + fileName)
+        fire = cv2.VideoCapture('./flame-spray-videos/' + fileName)
         
         ret, frame = fire.read()
         height, width, channels = frame.shape
