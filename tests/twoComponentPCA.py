@@ -19,16 +19,33 @@ def applyPCA (array, frameCount, test, videos, stability):
     
     for i in range(0, len(videos) - 1):
         isStable = stability[i]
+        # print(isStable)
         for j in range(0, videos[i]):
-            if isStable > 1.00: 
+
+            if isStable > 1.25:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'blue')
             elif isStable > .75:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'purple')
-            else:
+            elif isStable >= 0:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'red')
+            elif isStable == -1:
+                plt.scatter(principalComponents[frames, 0],
+                            principalComponents[frames, 1], c = 'black')
+            # if isStable < 0.75: 
+            #     plt.scatter(principalComponents[frames, 0],
+            #                 principalComponents[frames, 1], c = 'red')
+            # elif isStable < 1.25: 
+            #     plt.scatter(principalComponents[frames, 0],
+            #                 principalComponents[frames, 1], c = 'purple')
+            # elif isStable <= 2:
+            #     plt.scatter(principalComponents[frames, 0],
+            #                 principalComponents[frames, 1], c = 'blue')
+            # else:
+            #     plt.scatter(principalComponents[frames, 0],
+            #                 principalComponents[frames, 1], c = 'green')
             
             frames += 1
     # colors = cm.rainbow(np.linspace(0, 1, len(videos)))
@@ -113,7 +130,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Bounding Box Pixel Luminosity (per 10 frames)", fontsize = 24)
+        plt.title("2 component PCA on Bounding Box Pixel Luminosity (per 30 frames)", fontsize = 24)
         
     plt.show()
     return

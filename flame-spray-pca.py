@@ -4,6 +4,7 @@ import pandas
 from sklearn.preprocessing import StandardScaler
 import tests.luminance as luminance
 import tests.twoComponentPCA as twoComponentPCA
+
 # =========================================================================== #
 
 # standardize the values in array
@@ -19,7 +20,7 @@ def main():
     df = pandas.read_csv('classification-master.csv')
     
     features = []
-    frameCount = 0    
+    frameCount = 0
     videos = []
     stability = []
     temp = []
@@ -27,7 +28,7 @@ def main():
     
     for i in range(0, len(df['File name']) - 1):
         
-        if i != 0 and i != 1:
+        if i != 1:
             numFrames = 0
             
             # read in video
@@ -50,6 +51,7 @@ def main():
             vidWidth = width 
             test = ''
             tempStability = int(df['means'][i])
+            # print("tempStability", tempStability)
             # stability.append(tempStability)
             
             # display the video until 'q' is pressed or until it terminates
@@ -57,12 +59,12 @@ def main():
                 ret, frame = fire.read()
                 
                 if ret == True:
-                    cv2.imshow('Fire', frame)
+                    # cv2.imshow('Fire', frame)
                     
                     frameCount += 1
                     temp += luminance.lumArray(frame, vidHeight, vidWidth)
                     numFrames += 1
-                    if frameCount % 10 == 0: 
+                    if frameCount % 30 == 0: 
                         numFrames += 1
                         features.append(temp)
                         temp = []
