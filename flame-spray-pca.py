@@ -28,7 +28,7 @@ def main():
     
     for i in range(0, len(df['File name']) - 1):
         
-        if i != 1:
+        if i == 1:
             numFrames = 0
             
             # read in video
