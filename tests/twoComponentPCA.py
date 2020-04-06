@@ -10,12 +10,18 @@ import matplotlib.cm as cm
 # =========================================================================== #
 
 # apply PCA with 2 components
-def applyPCA (array, frameCount, test, videos, stability):
+def applyPCA(array, frameCount, test, videos, stability, sample = None):
     
     pca = PCA(n_components = 2)
     
     principalComponents = pca.fit_transform(array)
-    principalComponents = pca.transform(array)
+    # print(type(array))
+    # print(array.shape)
+    # print(principalComponents.shape)
+    # print(sample.shape)
+    # print(type(sample))
+    components = (pca.components_)
+    print(components.shape)
     frames = 0
     
     for i in range(0, len(videos) - 1):
@@ -32,12 +38,20 @@ def applyPCA (array, frameCount, test, videos, stability):
             elif isStable >= 0:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'red')
-            elif isStable == -1:
-                plt.scatter(principalComponents[frames, 0],
-                            principalComponents[frames, 1], c = 'black')
+            else:
+                print("idk")
             
             frames += 1        
 
+    if sample is not None:
+        # sample = np.transpose(sample)
+        # projected_sample = np.dot(np.transpose(sample), components)
+        projected_sample = np.dot(sample, np.transpose(components))
+        print(projected_sample)
+        # new_sample = pca.transform(sample)
+        plt.scatter(projected_sample[0, 0],
+                    projected_sample[0, 1], c = 'green')
+        
     plt.xlabel("Principal Component 1", fontsize = 24)
     plt.ylabel("Principal Component 2", fontsize = 24)
     

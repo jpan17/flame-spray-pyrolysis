@@ -23,22 +23,59 @@ def main():
     frameCount = 0
     videos = []
     stability = []
+    test = ''
     temp = []
     tempStability = 1
-    
+    sample = None
     for i in range(0, len(df['File name']) - 1):
         
-        if i >= 0:
+        if i == 1:
             numFrames = 0
             
             # read in video
             fire = cv2.VideoCapture('./flame-spray-videos/' + df['File name'][i])
             print(df['File name'][i])
             
-            # if i > 0: 
-            #     features.append(temp)
-            #     temp = []
-            #     videos.append(1)
+            # print error message if you can't read it in
+            if (fire.isOpened() == False):
+                print("Error opening video file or stream")
+                
+            # initialize video variables
+            ret, frame = fire.read()
+            height, width, channels = frame.shape
+            vidHeight = height
+            vidWidth = width
+            
+            # display the video until 'q' is pressed or until it terminates
+            while (fire.isOpened() and numFrames < 30):
+                ret, frame = fire.read()
+                
+                if ret == True:
+                    
+                    # cv2.imshow('Fire', frame)
+                    
+                    temp += luminance.lumArray(frame, vidHeight, vidWidth)
+                    numFrames += 1
+                    if numFrames % 30 == 0:
+                        sample = []
+                        sample.append(temp)
+                        # print(sample.shape)
+                        sample = standardize(sample)
+                        temp = []
+                    
+                    # terminates the video before it finishes
+                    if cv2.waitKey(25) == ord('q'):
+                        break
+                    
+                else:
+                    break
+        
+        if i >= 50:
+            numFrames = 0
+            
+            # read in video
+            fire = cv2.VideoCapture('./flame-spray-videos/' + df['File name'][i])
+            print(df['File name'][i])
             
             # print error message if you can't read it in
             if (fire.isOpened() == False):
@@ -51,14 +88,13 @@ def main():
             vidWidth = width 
             test = ''
             tempStability = int(df['box'][i])
-            # print("tempStability", tempStability)
-            # stability.append(tempStability)
             
             # display the video until 'q' is pressed or until it terminates
             while (fire.isOpened() and numFrames < 250):
                 ret, frame = fire.read()
                 
                 if ret == True:
+                    
                     # cv2.imshow('Fire', frame)
                     
                     frameCount += 1
@@ -82,10 +118,10 @@ def main():
     # print(features)
     features = standardize(features)
     # print(frameCount)
-    print(features.shape)
+    # print(features.shape)
     # print(len(videos))
     twoComponentPCA.applyPCA(features, frameCount, '', videos,
-                             stability)
+                             stability, sample)
         
     fire.release()
     cv2.destroyAllWindows()
