@@ -49,20 +49,20 @@ def applyPCA(array, frameCount, test, videos, stability, sample = None):
         # projected_sample = np.dot(sample, np.transpose(components))
         print([c[0:15] for c in components])
         print(sample[0][0:15])
-        sample = sample / np.mean(sample)
-        # print(pca.mean_)
-        sample = np.dot(sample, pca.components_.T)
-        if pca.whiten:
-            sample /= np.sqrt(pca.explained_variance_)
+        # sample = sample / np.mean(sample)
+        # # print(pca.mean_)
+        # sample = np.dot(sample, pca.components_.T)
+        # if pca.whiten:
+        #     sample /= np.sqrt(pca.explained_variance_)
 
-        # comp1 = np.dot(components[0], sample[0]) / np.sqrt(sum(components[0]**2))
-        # comp2 = np.dot(components[1], sample[0]) / np.sqrt(sum(components[1]**2))
-        # projected_sample = [comp1, comp2]
+        comp1 = np.dot(components[0], sample[0]) / np.sqrt(sum(components[0]**2))
+        comp2 = np.dot(components[1], sample[0]) / np.sqrt(sum(components[1]**2))
+        projected_sample = [comp1, comp2]
         # print(projected_sample)
         # new_sample = pca.transform(sample)
         print(sample)
-        plt.scatter(sample[0, 0],
-                    sample[0, 1], c = 'green')
+        plt.scatter(projected_sample[0],
+                    projected_sample[1], c = 'green')
         
     plt.xlabel("Principal Component 1", fontsize = 24)
     plt.ylabel("Principal Component 2", fontsize = 24)

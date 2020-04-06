@@ -7,9 +7,14 @@ import tests.twoComponentPCA as twoComponentPCA
 
 # =========================================================================== #
 
+scaler = StandardScaler()
+
 # standardize the values in array
 def standardize(array):
-    standardized = StandardScaler().fit_transform(array)
+    global scaler
+    scaler = StandardScaler()
+    scaler = scaler.fit(array)
+    standardized = scaler.transform(array)
     return standardized
 
 # =========================================================================== #
@@ -29,7 +34,7 @@ def main():
     sample = None
     for i in range(0, len(df['File name']) - 1):
         
-        if i == 0:
+        if i == 1:
             numFrames = 0
             
             # read in video
@@ -115,6 +120,7 @@ def main():
                     break
     # print(features)
     features = standardize(features)
+    sample = scaler.transform(sample)
     # print(frameCount)
     # print(features.shape)
     # print(len(videos))
