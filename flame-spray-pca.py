@@ -29,7 +29,7 @@ def main():
     sample = None
     for i in range(0, len(df['File name']) - 1):
         
-        if i == 1:
+        if i == 0:
             numFrames = 0
             
             # read in video
@@ -56,11 +56,9 @@ def main():
                     
                     temp += luminance.lumArray(frame, vidHeight, vidWidth)
                     numFrames += 1
-                    if numFrames % 30 == 0:
+                    if numFrames == 30:
                         sample = []
                         sample.append(temp)
-                        # print(sample.shape)
-                        sample = standardize(sample)
                         temp = []
                     
                     # terminates the video before it finishes
@@ -70,7 +68,7 @@ def main():
                 else:
                     break
         
-        if i >= 50:
+        if i >= 2:
             numFrames = 0
             
             # read in video
