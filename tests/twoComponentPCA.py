@@ -15,6 +15,7 @@ def applyPCA (array, frameCount, test, videos, stability):
     pca = PCA(n_components = 2)
     
     principalComponents = pca.fit_transform(array)
+    principalComponents = pca.transform(array)
     frames = 0
     
     for i in range(0, len(videos) - 1):
@@ -34,58 +35,8 @@ def applyPCA (array, frameCount, test, videos, stability):
             elif isStable == -1:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'black')
-            # if isStable < 0.75: 
-            #     plt.scatter(principalComponents[frames, 0],
-            #                 principalComponents[frames, 1], c = 'red')
-            # elif isStable < 1.25: 
-            #     plt.scatter(principalComponents[frames, 0],
-            #                 principalComponents[frames, 1], c = 'purple')
-            # elif isStable <= 2:
-            #     plt.scatter(principalComponents[frames, 0],
-            #                 principalComponents[frames, 1], c = 'blue')
-            # else:
-            #     plt.scatter(principalComponents[frames, 0],
-            #                 principalComponents[frames, 1], c = 'green')
             
-            frames += 1
-    # colors = cm.rainbow(np.linspace(0, 1, len(videos)))
-    # frames = 0
-    # print(len(colors))
-    # print(colors[0])
-    
-    # for c in range(0, len(colors)):
-    #     color = colors[c]
-    #     for i in range(0, videos[c]):
-    #         plt.scatter(principalComponents[frames, 0], 
-    #                     principalComponents[frames, 1], c = color)
-    #         frames += 1 
-        
-    # plot the figure if it's not rgb
-    # if test != "luminance":
-    #     for i in range (0, len(principalComponents)):
-    #         if i >= 0 and i <= 100:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = 'yellow')
-    #         elif i > 100 and i < 260:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = "orange")
-    #         else:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = "crimson")
-    # # code for all rgb; shouldn't get used for now
-    # else:
-    #     print("you shouldn't be here")
-
-    #     for i in range (0, len(principalComponents)):
-    #         if i >= 0 and i <= 3 * 100:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = 'yellow')
-    #         elif i > 3 * 100 and i < 3 * 260:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = "orange")
-    #         else:
-    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
-    #                         c = "crimson")              
+            frames += 1        
 
     plt.xlabel("Principal Component 1", fontsize = 24)
     plt.ylabel("Principal Component 2", fontsize = 24)
@@ -93,20 +44,7 @@ def applyPCA (array, frameCount, test, videos, stability):
     # decide how you want to cluster them
     choice = input("Do you want to apply 1) kmeans 2) affinity propogation" +
                    " or 3) mean shift to this data? Press enter to skip" +
-                   " cluster step.\n")
-    
-    # legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-    #                           label = 'Beginning (stable)',
-    #                           markerfacecolor = 'yellow', markersize = 10),
-    #                    Line2D([0],[0], marker = 'o', color = 'w',
-    #                           label = 'Middle (unstable)',
-    #                           markerfacecolor = 'orange', markersize = 10),
-    #                    Line2D([0],[0], marker = 'o', color = 'w', 
-    #                           label = 'End (stable)',
-    #                           markerfacecolor = 'crimson', markersize = 10)]
-    
-    # plt.legend(handles = legend_elements)
-    
+                   " cluster step.\n")    
      
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                               label = 'Stable',
@@ -159,11 +97,11 @@ def applyKmeans(array, clusterNumber, test):
         clustersY[label].append(array[i, 1])
     
   
-    # encircle clusters
-    for i in range(0, len(kmeans.cluster_centers_)):
-        if len(clustersX[i]) > 2:
-            encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
-                    alpha = 0.2)
+    # # encircle clusters
+    # for i in range(0, len(kmeans.cluster_centers_)):
+    #     if len(clustersX[i]) > 2:
+    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
+    #                 alpha = 0.2)
     
     # plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
     #           "kmeans = " + str(clusterNumber))

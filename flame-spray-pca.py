@@ -28,7 +28,7 @@ def main():
     
     for i in range(0, len(df['File name']) - 1):
         
-        if i == 1:
+        if i >= 0:
             numFrames = 0
             
             # read in video
@@ -50,7 +50,7 @@ def main():
             vidHeight = height
             vidWidth = width 
             test = ''
-            tempStability = int(df['means'][i])
+            tempStability = int(df['box'][i])
             # print("tempStability", tempStability)
             # stability.append(tempStability)
             
