@@ -61,17 +61,17 @@ def experts():
                               label = 'Computer Vision Prediction',
                               markerfacecolor = 'red', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
-                              label = 'Actual',
+                              label = 'Human Classification',
                               markerfacecolor = 'black', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
-                              label = 'Box Prediction',
+                              label = 'Bounding Box Prediction',
                               markerfacecolor = 'blue', markersize = 10)]
 
     
     plt.legend(handles = legend_elements, fontsize = 18)
     
     plt.xlabel('Video Number', fontsize = 24)
-    plt.ylabel('Stability (0 = unstable, 1 = unsure, 2 = stable)', fontsize = 24)
+    plt.ylabel('Stability', fontsize = 24)
     plt.title('Flame Stability vs Video Number', fontsize = 24)
     
     plt.plot(videos, predictions, c = 'red', linewidth = 2)

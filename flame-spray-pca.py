@@ -4,7 +4,7 @@ import pandas
 from sklearn.preprocessing import StandardScaler
 import tests.luminance as luminance
 import tests.twoComponentPCA as twoComponentPCA
-
+import tests.moreComponentPCA as moreComponentPCA
 # =========================================================================== #
 
 scaler = StandardScaler()
@@ -32,48 +32,48 @@ def main():
     temp = []
     tempStability = 1
     sample = None
-    for i in range(0, len(df['File name']) - 1):
+    for i in range(0, len(df['File name'])):
         
-        if i == 1:
-            numFrames = 0
+        # if i == 0:
+        #     numFrames = 0
             
-            # read in video
-            fire = cv2.VideoCapture('./flame-spray-videos/' + df['File name'][i])
-            print(df['File name'][i])
+        #     # read in video
+        #     fire = cv2.VideoCapture('./flame-spray-videos/' + df['File name'][i])
+        #     print(df['File name'][i])
             
-            # print error message if you can't read it in
-            if (fire.isOpened() == False):
-                print("Error opening video file or stream")
+        #     # print error message if you can't read it in
+        #     if (fire.isOpened() == False):
+        #         print("Error opening video file or stream")
                 
-            # initialize video variables
-            ret, frame = fire.read()
-            height, width, channels = frame.shape
-            vidHeight = height
-            vidWidth = width
+        #     # initialize video variables
+        #     ret, frame = fire.read()
+        #     height, width, channels = frame.shape
+        #     vidHeight = height
+        #     vidWidth = width
             
-            # display the video until 'q' is pressed or until it terminates
-            while (fire.isOpened() and numFrames < 30):
-                ret, frame = fire.read()
+        #     # display the video until 'q' is pressed or until it terminates
+        #     while (fire.isOpened() and numFrames < 30):
+        #         ret, frame = fire.read()
                 
-                if ret == True:
+        #         if ret == True:
                     
-                    # cv2.imshow('Fire', frame)
+        #             # cv2.imshow('Fire', frame)
                     
-                    temp += luminance.lumArray(frame, vidHeight, vidWidth)
-                    numFrames += 1
-                    if numFrames == 30:
-                        sample = []
-                        sample.append(temp)
-                        temp = []
+        #             temp += luminance.lumArray(frame, vidHeight, vidWidth)
+        #             numFrames += 1
+        #             if numFrames == 30:
+        #                 sample = []
+        #                 sample.append(temp)
+        #                 temp = []
                     
-                    # terminates the video before it finishes
-                    if cv2.waitKey(25) == ord('q'):
-                        break
+        #             # terminates the video before it finishes
+        #             if cv2.waitKey(25) == ord('q'):
+        #                 break
                     
-                else:
-                    break
+        #         else:
+        #             break
         
-        if i >= 2:
+        if i >= 0:
             numFrames = 0
             
             # read in video
@@ -90,7 +90,9 @@ def main():
             vidHeight = height
             vidWidth = width 
             test = ''
+            # use 'box' for flsc classifier
             tempStability = int(df['box'][i])
+            # tempStability = df['means'][i]
             
             # display the video until 'q' is pressed or until it terminates
             while (fire.isOpened() and numFrames < 250):
@@ -120,10 +122,11 @@ def main():
                     break
     # print(features)
     features = standardize(features)
-    sample = scaler.transform(sample)
+    # sample = scaler.transform(sample)
     # print(frameCount)
     # print(features.shape)
     # print(len(videos))
+    # sample=None
     twoComponentPCA.applyPCA(features, frameCount, '', videos,
                              stability, sample)
         

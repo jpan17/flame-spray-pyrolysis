@@ -13,8 +13,10 @@ def averageLine(image):
     frame = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(frame)
     
-    for row in range(220, 270):
-        for col in range(430, 480):
+    # for row in range(220, 270):
+    #     for col in range(430, 480):
+    for row in range(0, 50):
+        for col in range(0, 50):
             total += l[row][col]
             count += 1
             
@@ -23,7 +25,7 @@ def averageLine(image):
 
 def main():
     
-    df = pandas.read_csv('EtOH_flamemap.csv')
+    df = pandas.read_csv('classification-master.csv')
     
     frameCount = 0
     frames = []
@@ -33,7 +35,7 @@ def main():
     totalAverage = 0
     averages = []
         
-    fileName = "flame-spray-02.avi"
+    fileName = "flame-spray-01.avi"
     fire = cv2.VideoCapture('./flame-spray-videos/' + fileName)
         
     ret, frame = fire.read()
